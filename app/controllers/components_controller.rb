@@ -1,4 +1,4 @@
-class ComponentsController < ApplicationController
+class ComponentsController < BaseController
   def index
   end
 end
