@@ -15,7 +15,7 @@ import { signUpSchema } from "../utils";
 import Error from "../components/error";
 import axiosInstance from "../api";
 import { AxiosResponse } from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useSearchParams, useNavigate } from 'react-router-dom';
 import Header from "./UI/Header";
 interface SignUp {
   email: string;
@@ -27,20 +27,23 @@ const defaultTheme = createTheme();
 
 export default function SignUp() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search)
   const formik = useFormik({
     initialValues:{
-      email: "",
+      email: params.get('email') || "",
       password: "",
       password_confirmation: ""
     },
     validationSchema:signUpSchema,
     onSubmit: (values: SignUp) => {
       axiosInstance.post('/users', {
-        "user": values
+        "user": values,
+        "invitation_token": params.get('invitation_token')
       })
       .then((response: AxiosResponse) => {
-        navigate("/dashboard");
         localStorage.setItem('token', response.data.token);
+        navigate("/dashboard");
       })
       .catch((error) => {
         console.error(error);

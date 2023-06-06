@@ -8,9 +8,13 @@ class Invitation < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true
 
-  after_create :invite_user
+  after_create :invite_user, :update_invitation_status
 
   private
+
+  def update_invitation_status
+    update(status: :sent)
+  end
 
   def invite_user
     InvitationMailer.referral_mail(id).deliver_now
