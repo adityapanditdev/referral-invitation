@@ -5,6 +5,7 @@ function Dashboard() {
   return (
     <div>
       <Header />
+      <p>this is dashboard</p>
     </div>
   );
 }
