@@ -4,6 +4,7 @@ import Home from "../components/Home";
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
 import DashBoard from "../components/Dashboard";
+import NewInvitation from "../components/NewInvitation";
 import PrivateRoute from "./privateRoute";
 
 function Index() {
@@ -16,6 +17,10 @@ function Index() {
         <Route
           path="/dashboard"
           element={<PrivateRoute component={DashBoard} />}
+        />
+        <Route
+          path="/new-invitation"
+          element={<PrivateRoute component={NewInvitation} />}
         />
       </Routes>
     </Router>

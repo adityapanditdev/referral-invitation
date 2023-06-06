@@ -26,6 +26,12 @@ function Header() {
           },
         },
         {
+          title: "New Invitation",
+          handleClick: () => {
+            navigate("/new-invitation");
+          },
+        },
+        {
           title: "Logout",
           handleClick: () => {
             navigate("/signin");

@@ -7,8 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import axiosInstance from "../api";
-import { AxiosResponse } from "axios";
+import axios from "axios";
 
 function Dashboard() {
   type rowType  = {
@@ -19,18 +18,18 @@ function Dashboard() {
 
   }
 
+  const token = localStorage.getItem("token");
   const [rowData, setRowData] = useState<Array<any>>([]);
-  useEffect(() => {
-    axiosInstance
-    .get('/invitations.json',)
-    .then((response: AxiosResponse) => {
-      setRowData(response.data);
+  const headers: any = {
+    'Content-Type': 'application/json',
+    'Authorization':`Bearer ${token}`
+  };
 
+  useEffect(() => {
+    axios.get('http://localhost:3000/invitations.json', {headers:headers}).then((response) => {
+      setRowData(response.data)
     })
-    .catch((error) => {
-      console.error(error);
-    });
-  }, []);
+  }, [token]);
 
   return (
     <div>
