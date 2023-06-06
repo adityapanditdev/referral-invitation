@@ -1,9 +1,10 @@
 import React from 'react';
+import Header from './UI/Header';
 
 function Home() {
   return (
     <div>
-      <p>this is Home page</p>
+      <Header />
     </div>
   );
 }
