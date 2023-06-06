@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative '../../lib/tasks/json_web_token.rb'
+require_relative '../../lib/tasks/json_web_token'
 
 # app/controllers/application_contoller.rb
-class ApplicationController < ActionController::API
+class ApplicationController < ActionController::Base
   def not_found
     render json: { error: 'not_found' }
   end
