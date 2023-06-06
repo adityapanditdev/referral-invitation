@@ -12,8 +12,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useFormik } from "formik";
 import { invitationSchema } from "../utils";
 import Error from "../components/error";
-import axiosInstance from "../api";
-import { AxiosResponse } from "axios";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Header from './UI/Header';
 interface Invitation {
@@ -24,17 +23,20 @@ const defaultTheme = createTheme();
 
 export default function NewInvitation() {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  const headers: any = {
+    'Content-Type': 'application/json',
+    'Authorization':`Bearer ${token}`
+  };
+
   const formik = useFormik({
     initialValues: {
       email: ""
     },
     validationSchema: invitationSchema,
     onSubmit: (values: Invitation) => {
-      axiosInstance
-        .post("/invitations", {
-          "invitation": values
-        })
-        .then((response: AxiosResponse) => {
+      axios.post("/invitations.json", { "invitation": values }, { headers: headers })
+        .then((response) => {
           navigate("/dashboard");
         })
         .catch((error) => {

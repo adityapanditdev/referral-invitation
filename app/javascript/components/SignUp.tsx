@@ -26,6 +26,7 @@ interface SignUp {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+  localStorage.removeItem('token');
   const navigate = useNavigate();
   const location = useLocation();
   const params = new URLSearchParams(location.search)

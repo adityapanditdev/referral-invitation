@@ -25,6 +25,7 @@ interface Login {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  localStorage.removeItem('token');
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
