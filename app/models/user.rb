@@ -1,6 +1,17 @@
+# frozen_string_literal: true
+
+# app/models/user.rb
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  belongs_to :referrer, class_name: 'User', foreign_key: 'referrer_id', optional: true
+
+  before_create :set_ref_token
+
+  private
+
+  def set_ref_token
+    self.referral_token = SecureRandom.hex(7)
+  end
 end
