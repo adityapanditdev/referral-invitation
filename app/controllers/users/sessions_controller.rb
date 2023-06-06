@@ -4,6 +4,7 @@ module Users
   # app/controllers/users/registration_contoller.rb
   class SessionsController < Devise::SessionsController
     before_action :authorize_request, except: :create
+    protect_from_forgery with: :null_session
 
     def create
       user = User.find_by_email(params[:user][:email])
