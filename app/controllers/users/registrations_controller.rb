@@ -10,8 +10,8 @@ module Users
     def create
       user = User.new(sign_up_params)
       user.referrer = @referrer
-      token = JsonWebToken.encode(user_id: user.id)
       if user.save
+        token = JsonWebToken.encode(user_id: user.id)
         render json: { id: user.id, email: user.email,
                        token: token, message: 'Registration Successful!' }, status: :ok
       else
